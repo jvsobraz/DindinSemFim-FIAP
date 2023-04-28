@@ -1,6 +1,13 @@
 package br.com.fiap.dindin.repository;
 
-public class UsuarioRepository extends JpaRepository<Usuario, Long> {
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.com.fiap.dindin.models.Usuario;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+
+    Optional<Usuario> findByEmail(String email);
     
-    void findByEmailAndSenha(String email, String senha);
 }
