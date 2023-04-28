@@ -15,7 +15,7 @@ import br.com.fiap.dindin.repository.UsuarioRepository;
 import jakarta.validation.Valid;
 
 @RestController
-public class UsuarioControlle {
+public class UsuarioController {
 
     @Autowired
     UsuarioRepository repository;
