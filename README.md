@@ -1,4 +1,4 @@
-# Dindin Sem Fim
+# Dindin Sem Fim - FIAP
 
 Uma API para o app de controle de gastos pessoais de estudo para a faculdade FIAP.
 
