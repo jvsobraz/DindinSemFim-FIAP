@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fiap.dindin.models.Credencial;
 import br.com.fiap.dindin.models.Usuario;
 import br.com.fiap.dindin.repository.UsuarioRepository;
+import br.com.fiap.dindin.service.TokenJwtService;
 import jakarta.validation.Valid;
 
 @RestController
-public class UsuarioController {
+public class UsuarioControlle {
 
     @Autowired
     UsuarioRepository repository;
@@ -25,6 +26,9 @@ public class UsuarioController {
 
     @Autowired
     PasswordEncoder encoder;
+
+    @Autowired
+    TokenJwtService tokenJwtService;
 
     @PostMapping("/api/registrar")
     public ResponseEntity<Usuario> registrar(@RequestBody @Valid Usuario usuario){
@@ -36,7 +40,8 @@ public class UsuarioController {
     @PostMapping("/api/login")
     public ResponseEntity<Object> login(@RequestBody @Valid Credencial credencial){
         manager.authenticate(credencial.toAuthentication());
-        return ResponseEntity.ok().build();
+        var token = tokenJwtService.generateToken(credencial);
+        return ResponseEntity.ok(token);
     }
     
 }
