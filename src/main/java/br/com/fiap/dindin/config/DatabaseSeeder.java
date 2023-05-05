@@ -10,8 +10,10 @@ import org.springframework.context.annotation.Configuration;
 
 import br.com.fiap.dindin.models.Conta;
 import br.com.fiap.dindin.models.Despesa;
+import br.com.fiap.dindin.models.Usuario;
 import br.com.fiap.dindin.repository.ContaRepository;
 import br.com.fiap.dindin.repository.DespesaRepository;
+import br.com.fiap.dindin.repository.UsuarioRepository;
 
 @Configuration
 public class DatabaseSeeder implements CommandLineRunner {
@@ -21,6 +23,9 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     @Autowired
     DespesaRepository despesaRepository;
+
+    @Autowired
+    UsuarioRepository usuarioRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -41,6 +46,13 @@ public class DatabaseSeeder implements CommandLineRunner {
             Despesa.builder().valor(new BigDecimal(87)).descricao("internet").data(LocalDate.now()).conta(c1).build(),
             Despesa.builder().valor(new BigDecimal(78)).descricao("tarifa").data(LocalDate.now()).conta(c1).build()
         ));
+
+        usuarioRepository.save(Usuario.builder()
+            .nome("Joao Carlos")
+            .email("joao@fiap.com.br")
+            .senha("$2a$12$pMH3uGhwRXAaEq21jmmqn.PzxykI/HJyVAXM6sIQlcQ/2emqevaWC")
+            .build()
+        );
        
     }
     
