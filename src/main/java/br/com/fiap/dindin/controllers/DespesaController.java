@@ -1,5 +1,6 @@
 package br.com.fiap.dindin.controllers;
 
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,12 +24,19 @@ import br.com.fiap.dindin.exceptions.RestNotFoundException;
 import br.com.fiap.dindin.models.Despesa;
 import br.com.fiap.dindin.repository.ContaRepository;
 import br.com.fiap.dindin.repository.DespesaRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/despesas")
 @Slf4j
+@SecurityRequirement(name = "bearer-key")
+@Tag(name = "despesa")
 public class DespesaController {
 
     @Autowired
@@ -41,7 +49,7 @@ public class DespesaController {
     PagedResourcesAssembler<Object> assembler;
 
     @GetMapping
-    public PagedModel<EntityModel<Object>> index(@RequestParam(required = false) String busca, @PageableDefault(size = 5) Pageable pageable){
+    public PagedModel<EntityModel<Object>> index(@RequestParam(required = false) String busca, @ParameterObject @PageableDefault(size = 5) Pageable pageable){
         Page<Despesa> despesas = (busca == null)?
             despesaRepository.findAll(pageable):
             despesaRepository.findByDescricaoContaining(busca, pageable);
@@ -50,6 +58,10 @@ public class DespesaController {
     }
 
     @PostMapping
+    @ApiResponses ({
+        @ApiResponse(responseCode = "201", description = "Despesa cadastrada com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Os campos enviados são inválidos")
+    })
     public ResponseEntity<Object> create(@RequestBody @Valid Despesa despesa){
         log.info("cadastrando despesa " + despesa);
         despesaRepository.save(despesa);
@@ -58,6 +70,11 @@ public class DespesaController {
     }
     
     @GetMapping("{id}")
+    @Operation(
+        summary = "Detalhar despesa",
+        description = "Endpoint que recebe um id e retorna os dados da despesa. O id deve ser ..."
+        
+    )
     public EntityModel<Despesa> show(@PathVariable Long id){
         log.info("detalhando despesa " + id);
         var despesa = despesaRepository.findById(id)
