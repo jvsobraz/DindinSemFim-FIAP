@@ -58,9 +58,8 @@ public class ContaController {
     @DeleteMapping("{id}")
     public ResponseEntity<Conta> destroy(@PathVariable Long id){
         log.info("apagando conta " + id);
-        var conta = getConta(id);
-        conta.setAtiva(false);
-        repository.save(conta);
+        getConta(id);
+        repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 

@@ -29,7 +29,7 @@ public class Conta {
     @NotBlank(message = "O nome é obrigatório")
     private String nome;
     
-    @JsonProperty(access = Access.WRITE_ONLY)
+    
     @Min(value = 0, message = "O saldo não pode ser negativo")
     private BigDecimal saldoInicial;
 
