@@ -2,6 +2,10 @@
 
 Uma API para o app de controle de gastos pessoais.
 
+## Vídeo explicativo no Youtube:
+
+https://youtu.be/WpuwCXxmS-w
+
 Este é um projeto que demonstra a criação de um serviço de aplicativo Java com integração contínua no Microsoft Azure. O projeto inclui a criação de tabelas em um banco de dados Oracle, a implantação de uma API e testes usando o software Insomnia. Siga as etapas abaixo para configurar o ambiente e executar o projeto.
 
 ## Configuração Inicial
