@@ -1,0 +1,34 @@
+-- Tabela 'conta'
+CREATE TABLE conta (
+    id NUMBER(19,0) GENERATED AS IDENTITY,
+    ativa NUMBER(1,0) NOT NULL,
+    icone VARCHAR2(255 CHAR),
+    nome VARCHAR2(255 CHAR),
+    saldo_inicial NUMBER(38,2) CHECK (saldo_inicial >= 0),
+    PRIMARY KEY (id)
+);
+
+-- Tabela 'despesa'
+CREATE TABLE despesa (
+    id NUMBER(19,0) GENERATED AS IDENTITY,
+    data DATE NOT NULL,
+    descricao VARCHAR2(255 CHAR),
+    valor NUMBER(38,2) NOT NULL CHECK (valor >= 0),
+    conta_id NUMBER(19,0),
+    PRIMARY KEY (id)
+);
+
+-- Tabela 'usuario'
+CREATE TABLE usuario (
+    id NUMBER(19,0) GENERATED AS IDENTITY,
+    email VARCHAR2(255 CHAR),
+    nome VARCHAR2(255 CHAR),
+    senha VARCHAR2(255 CHAR),
+    PRIMARY KEY (id)
+);
+
+-- Adicionando a restrição de chave estrangeira na tabela 'despesa'
+ALTER TABLE despesa
+ADD CONSTRAINT FK_lngcgagha9t0c6n5kgqw4ut8g
+FOREIGN KEY (conta_id)
+REFERENCES conta;
