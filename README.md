@@ -2,6 +2,90 @@
 
 Uma API para o app de controle de gastos pessoais.
 
+Este é um projeto que demonstra a criação de um serviço de aplicativo Java com integração contínua no Microsoft Azure. O projeto inclui a criação de tabelas em um banco de dados Oracle, a implantação de uma API e testes usando o software Insomnia. Siga as etapas abaixo para configurar o ambiente e executar o projeto.
+
+## Configuração Inicial
+### Banco de Dados Oracle
+
+Primeiro, crie as tabelas no banco de dados Oracle usando o SQL Developer com o seguinte script:
+
+-- Tabela 'conta'
+CREATE TABLE conta (
+    id NUMBER(19,0) GENERATED AS IDENTITY,
+    ativa NUMBER(1,0) NOT NULL,
+    icone VARCHAR2(255 CHAR),
+    nome VARCHAR2(255 CHAR),
+    saldo_inicial NUMBER(38,2) CHECK (saldo_inicial >= 0),
+    PRIMARY KEY (id)
+);
+
+-- Tabela 'despesa'
+CREATE TABLE despesa (
+    id NUMBER(19,0) GENERATED AS IDENTITY,
+    data DATE NOT NULL,
+    descricao VARCHAR2(255 CHAR),
+    valor NUMBER(38,2) NOT NULL CHECK (valor >= 0),
+    conta_id NUMBER(19,0),
+    PRIMARY KEY (id)
+);
+
+-- Tabela 'usuario'
+CREATE TABLE usuario (
+    id NUMBER(19,0) GENERATED AS IDENTITY,
+    email VARCHAR2(255 CHAR),
+    nome VARCHAR2(255 CHAR),
+    senha VARCHAR2(255 CHAR),
+    PRIMARY KEY (id)
+);
+
+-- Adicionando a restrição de chave estrangeira na tabela 'despesa'
+ALTER TABLE despesa
+ADD CONSTRAINT FK_lngcgagha9t0c6n5kgqw4ut8g
+FOREIGN KEY (conta_id)
+REFERENCES conta;
+
+### Configuração do Projeto
+
+1. Faça o download ou o Fork deste repositório: DindinSemFim-FIAP.
+2. Realize as alterações necessárias no arquivo application.properties, especificando o username e password do seu banco de dados Oracle.
+
+## Implantação no Microsoft Azure
+
+1. Crie um Serviço de Aplicativo no Portal da Azure seguindo as configurações abaixo:
+- Nome da instância
+- Linguagem: Java 17
+- Sistema Operacional: Windows
+- Região: East US ou Brazil South
+- Plano de preço: Gratuito (F1)
+
+2. Na aba "Implantação", habilite a Implantação Contínua e conecte sua conta do GitHub.
+
+3. Selecione a organização, o repositório e a branch que serão usados para o projeto.
+
+4. Na aba "Rede", deixe o Acesso Público ativado.
+
+5. Na aba "Monitoramento", desabilite o Application Insights para este projeto.
+
+6. Crie um Grupo de Recursos e aguarde a conclusão da implantação.
+
+## Testando a API
+
+1. Após a implantação, acesse o Repositório no GitHub, clique em "Actions" e depois no "Workflow" em execução.
+
+2. Aguarde o build e o deploy da aplicação.
+
+3. Como a aplicação é uma API e não tem uma página inicial padrão, não é possível acessar o link diretamente.
+
+4. Insira o sufixo /contas na URL gerada para realizar os testes no Insomnia.
+
+5. Abra o Insomnia e realize testes GET, POST, PUT e DELETE na API de acordo com as instruções no arquivo de texto.
+
+## Limpeza
+
+Após concluir os testes, exclua o Grupo de Recursos e todos os recursos criados no Microsoft Azure. Além disso, remova os objetos do banco de dados no SQL Developer.
+
+Esse é um guia básico para configurar e testar o projeto DindinSemFim-FIAP. Sinta-se à vontade para personalizá-lo de acordo com as necessidades do seu projeto e adicionar informações adicionais, como a estrutura de diretórios, documentação da API, ou qualquer outra informação relevante.
+
 ## Endpoint
 
 - Despesas
