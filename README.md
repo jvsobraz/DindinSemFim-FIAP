@@ -53,8 +53,6 @@ Primeiro, crie as tabelas no banco de dados Oracle usando o SQL Developer com o 
 
 Após concluir os testes, exclua o Grupo de Recursos e todos os recursos criados no Microsoft Azure. Além disso, remova os objetos do banco de dados no SQL Developer.
 
-Esse é um guia básico para configurar e testar o projeto DindinSemFim-FIAP. Sinta-se à vontade para personalizá-lo de acordo com as necessidades do seu projeto e adicionar informações adicionais, como a estrutura de diretórios, documentação da API, ou qualquer outra informação relevante.
-
 ## Endpoint
 
 - Despesas
